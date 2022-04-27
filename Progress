@@ -1,0 +1,15 @@
+싸이파이로 float32 읽는것까지 성공
+Callback으로 스테레오믹스 받기
+	- 잡음 심해서 voicemeeter로 재시도
+콜백내에서 separate 실시 
+	- Separate 작업 1frame당 0.2초 소요
+	- 실시간 작업하기는 어려워보이고 google adaptive sound는 latency가 5ms라고 함
+실시간으로 데이터모아서 온클릭할때 한번에 파일로 쓰기
+	- 구현은 했는데 Frame 간격마다 툭툭 튀는데 여기에 zero padding 해야할 것으로 예상
+   - float로 하면 툭툭튀는거 못잡아서 일단 int16으로 받고 데이터 쓸때 float32로 변환시킴
+
+Windows Audio Stream별 latency차이
+MME > WDM > KS > ASIO 
+
+Realtime으로 레코딩하면 separate때문에 데이터 취득이 거의 안됨
+-> Separate 코드 고쳐서 Realtime에 적합하도록 해야함
